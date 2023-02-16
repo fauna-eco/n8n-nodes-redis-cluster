@@ -558,14 +558,14 @@ export class RedisCluster implements INodeType {
 			}
 
 			if (type === 'string') {
-				await client.set(keyName, value.toString());
+				await client.set(keyName, `${value}`);
 			} else if (type === 'hash') {
 				for (const key of Object.keys(value)) {
-					await client.hSet(keyName, key, (value as IDataObject)[key]!.toString());
+					await client.hSet(keyName, key, `${(value as IDataObject)[key]!}`);
 				}
 			} else if (type === 'list') {
 				for (let index = 0; index < (value as string[]).length; index++) {
-					await client.lSet(keyName, index, (value as IDataObject)[index]!.toString());
+					await client.lSet(keyName, index, `${(value as IDataObject)[index]!}`);
 				}
 			}
 
